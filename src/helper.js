@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 export default class DistrictRepository {
   constructor(data) {
     this.data = this.mutateData(data)
@@ -32,9 +34,10 @@ export default class DistrictRepository {
   findAllMatches(searchTerm) {
     if (typeof searchTerm !== "undefined") {
       const upperSearch = searchTerm.toUpperCase()
-      return upperSearch in this.data ? [...this.data[upperSearch]] : []
+      console.log(Object.entries(this.data[upperSearch]));
+      return upperSearch in this.data ? Object.entries(this.data) : []
     } else {
-      return [...this.data]
+      return Object.entries(this.data)
     }
   }
 }
