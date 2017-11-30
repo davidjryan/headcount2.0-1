@@ -29,7 +29,12 @@ export default class DistrictRepository {
     }
   }
 
-  findAllMatching() {
-
+  findAllMatches(searchTerm) {
+    if (typeof searchTerm !== "undefined") {
+      const upperSearch = searchTerm.toUpperCase()
+      return upperSearch in this.data ? [...this.data[upperSearch]] : []
+    } else {
+      return [...this.data]
+    }
   }
 }
