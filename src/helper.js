@@ -5,15 +5,36 @@ export default class DistrictRepository {
 
   mutateData(data) {
     const arrayToObject = data.reduce((obj, district) => {
-      if (district.Location in obj) {
-        obj[district.Location][district.TimeFrame] = district.Data
+      const upperLocation = district.Location.toUpperCase()
+      const roundedData = Math.round(1000*(district.Data))/1000 || 0
+
+      if (upperLocation in obj) {
+        obj[upperLocation][district.TimeFrame] = roundedData
       } else {
-        obj[district.Location] = {[district.TimeFrame]: district.Data}
+        obj[upperLocation] = {location: upperLocation,
+                              [district.TimeFrame]: roundedData}
       }
       return obj
     },{})
-  //   const arrayToObject = (data) =>
-  // Object.assign({}, ...data.map(item => ({[item.location]: {item}})))
+
   return arrayToObject
+  }
+
+  findByName(searchTerm) {
+    if (typeof searchTerm !== "undefined") {
+      const upperSearch = searchTerm.toUpperCase()
+      return upperSearch in this.data ? this.data[upperSearch] : undefined
+    } else {
+      return undefined
+    }
+  }
+
+  findAllMatches(searchTerm) {
+    if (typeof searchTerm !== "undefined") {
+      const upperSearch = searchTerm.toUpperCase()
+      return upperSearch in this.data ? [...this.data[upperSearch]] : []
+    } else {
+      return [...this.data]
+    }
   }
 }
