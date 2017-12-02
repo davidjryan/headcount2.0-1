@@ -21,7 +21,7 @@ export default class DistrictRepository {
   }
 
   findByName(searchTerm) {
-    if (typeof searchTerm !== "undefined") {
+    if (searchTerm) {
       const upperSearch = searchTerm.toUpperCase()
       return upperSearch in this.data ? this.data[upperSearch] : undefined
     } else {
@@ -30,11 +30,23 @@ export default class DistrictRepository {
   }
 
   findAllMatches(searchTerm) {
-    if (typeof searchTerm !== "undefined") {
-      const upperSearch = searchTerm.toUpperCase()
-      return upperSearch in this.data ? [...this.data[upperSearch]] : []
-    } else {
-      return [...this.data]
+    if(!searchTerm) {
+      const allData = Object.keys(this.data).map(key => {
+        return {
+          location: key,
+          data: this.data[key]
+        }
+      });
+      return allData;
     }
+    searchTerm = searchTerm.toUpperCase();
+    const matchKeys = Object.keys(this.data).filter(key => key.includes(searchTerm));
+    const matches = matchKeys.map(matchKey => {
+      return {
+        location: matchKey,
+        data: this.data[matchKey]
+      }
+    });
+    return matches;
   }
 }
