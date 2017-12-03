@@ -20,4 +20,4 @@ constructor(props) {
   }
 }
 
-default export Header;
+export default Header;

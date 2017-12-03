@@ -21,6 +21,7 @@ export default class DistrictRepository {
   }
 
   findByName(searchTerm) {
+    searchTerm = searchTerm.toUpperCase()
     if (searchTerm) {
       const upperSearch = searchTerm.toUpperCase()
 
@@ -40,12 +41,11 @@ export default class DistrictRepository {
       });
       return allData;
     }
-    searchTerm = searchTerm.toUpperCase();
     const matchKeys = Object.keys(this.data).filter(key => key.includes(searchTerm));
-    const matches = matchKeys.map(matchKey => {
+    const matches = matchedKeys.map(matchedKey => {
       return {
-        location: matchKey,
-        data: this.data[matchKey]
+        location: matchedKey,
+        data: this.data[matchedKey]
       }
     });
     return matches;
