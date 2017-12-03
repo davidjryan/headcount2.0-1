@@ -23,6 +23,7 @@ export default class DistrictRepository {
   findByName(searchTerm) {
     if (searchTerm) {
       const upperSearch = searchTerm.toUpperCase()
+
       return upperSearch in this.data ? this.data[upperSearch] : undefined
     } else {
       return undefined
