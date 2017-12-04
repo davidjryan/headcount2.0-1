@@ -11,11 +11,13 @@ export default class DistrictRepository {
       if (upperLocation in obj) {
         obj[upperLocation][district.TimeFrame] = roundedData
       } else {
-        obj[upperLocation] = {location: upperLocation,
-                              [district.TimeFrame]: roundedData}
+        obj[upperLocation] = {
+                              location: upperLocation,
+                              [district.TimeFrame]: roundedData
+        }
       }
       return obj
-    },{})
+    }, {})
 
   return arrayToObject
   }
@@ -23,25 +25,24 @@ export default class DistrictRepository {
   findByName(searchTerm) {
     searchTerm = searchTerm.toUpperCase()
     if (searchTerm) {
-      const upperSearch = searchTerm.toUpperCase()
-
-      return upperSearch in this.data ? this.data[upperSearch] : undefined
+      return searchTerm in this.data ? this.data[searchTerm] : undefined
     } else {
       return undefined
     }
   }
 
   findAllMatches(searchTerm) {
+    searchTerm = searchTerm.toUpperCase()
     if(!searchTerm) {
-      const allData = Object.keys(this.data).map(key => {
+      const districtData = Object.keys(this.data).map(key => {
         return {
           location: key,
           data: this.data[key]
         }
       });
-      return allData;
+      return districtData;
     }
-    const matchKeys = Object.keys(this.data).filter(key => key.includes(searchTerm));
+    const matchedKeys = Object.keys(this.data).filter(key => key.includes(searchTerm));
     const matches = matchedKeys.map(matchedKey => {
       return {
         location: matchedKey,
