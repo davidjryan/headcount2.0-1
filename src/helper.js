@@ -37,23 +37,24 @@ export default class DistrictRepository {
     if (!searchTerm) {
       const districtData = Object.keys(this.data).map(key => {
         return {
-          location: key,
           data: this.data[key]
         }
       });
+
       return districtData;
     }
 
     searchTerm = searchTerm.toUpperCase()
 
     const matchedKeys = Object.keys(this.data).filter(key => key.includes(searchTerm));
-    
+
     const matches = matchedKeys.map(matchedKey => {
       return {
-        location: matchedKey,
-        data: this.data[matchedKey]
+        data: this.data[matchedKey],
+        id: Date.now()
       }
     });
+
     return matches;
   }
 }
