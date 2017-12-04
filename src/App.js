@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import DistrictRepository from './helper'
+import DistrictRepository from './helper';
+import CardContainer from './CardContainer';
 import kinderData from '../data/kindergartners_in_full_day_program.js';
 import './App.css';
 
@@ -16,11 +17,12 @@ class App extends Component {
     }
 
     this.districtSearch = this.districtSearch.bind(this);
-    // this.loadDataSet(kinderData)
+    this.cardSelected = this.cardSelected.bind(this);
   }
 
   districtSearch(term) {
     const { repo } = this.state
+
     return this.setState({ data: repo.findAllMatches(term) })
   }
 
@@ -30,12 +32,15 @@ class App extends Component {
     return this.setState({ repo, data: repo.findAllMatches() })
   }
 
+  cardSelected(event) {
+
+  }
 
   render() {
     return (
       <div>
         <Header onSearchTermChange={ term => this.districtSearch(term) }/>
-        <section></section>
+        <CardContainer dataSet={this.state.data} />
       </div>
     );
   }
