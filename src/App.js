@@ -8,13 +8,14 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: new DistrictRepository(kinderData),
+      data: [],
       districtOne: '',
       districtTwo: '',
       comparedCard: false
     }
 
     this.districtSearch = this.districtSearch.bind(this);
+    // this.loadDataSet(kinderData)
   }
 
   districtSearch(term) {
@@ -25,8 +26,10 @@ class App extends Component {
     return this.setState({ data: filteredData })
   }
 
-  loadDataSet(filePath) {
-    const repo = new DistrictRepository(filepath)
+  componentDidMount(filePath) {
+    const repo = new DistrictRepository(kinderData)
+
+    return this.setState({ data: repo.data })
   }
 
 
