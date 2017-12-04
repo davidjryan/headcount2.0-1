@@ -1,6 +1,7 @@
 export default class DistrictRepository {
   constructor(data) {
     this.data = this.mutateData(data)
+    this.findAllMatches = this.findAllMatches.bind(this)
   }
 
   mutateData(data) {
@@ -46,6 +47,7 @@ export default class DistrictRepository {
     searchTerm = searchTerm.toUpperCase()
 
     const matchedKeys = Object.keys(this.data).filter(key => key.includes(searchTerm));
+    
     const matches = matchedKeys.map(matchedKey => {
       return {
         location: matchedKey,

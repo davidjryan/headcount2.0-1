@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      repo: null,
       data: [],
       districtOne: '',
       districtTwo: '',
@@ -19,17 +20,14 @@ class App extends Component {
   }
 
   districtSearch(term) {
-    const { data } = this.state
-    console.log(term);
-    const filteredData = data.filter(searchedTerm => searchedTerm.hasOwnProperty(term))
-
-    return this.setState({ data: filteredData })
+    const { repo } = this.state
+    return this.setState({ data: repo.findAllMatches(term) })
   }
 
   componentDidMount(filePath) {
     const repo = new DistrictRepository(kinderData)
 
-    return this.setState({ data: repo.data })
+    return this.setState({ repo, data: repo.findAllMatches() })
   }
 
 
