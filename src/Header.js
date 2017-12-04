@@ -10,7 +10,7 @@ class Header extends Component {
   }
 
   onInputChange(term) {
-    this.setState({term});
+    this.setState({ term });
     this.props.onSearchTermChange(term);
   }
 
@@ -18,7 +18,7 @@ class Header extends Component {
     return(
     <header>
       HEADCOUNT 2.0
-      <input onChange={this.onInputChange} />
+      <input onChange={event => this.onInputChange(event.target.value)} />
     </header>
     )
   };

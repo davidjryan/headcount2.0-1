@@ -23,17 +23,17 @@ export default class DistrictRepository {
   }
 
   findByName(searchTerm) {
-    searchTerm = searchTerm.toUpperCase()
-    if (searchTerm) {
-      return searchTerm in this.data ? this.data[searchTerm] : undefined
-    } else {
+    if (!searchTerm) {
       return undefined
     }
+
+    searchTerm = searchTerm.toUpperCase()
+
+    return searchTerm in this.data ? this.data[searchTerm] : undefined
   }
 
   findAllMatches(searchTerm) {
-    searchTerm = searchTerm.toUpperCase()
-    if(!searchTerm) {
+    if (!searchTerm) {
       const districtData = Object.keys(this.data).map(key => {
         return {
           location: key,
@@ -42,6 +42,9 @@ export default class DistrictRepository {
       });
       return districtData;
     }
+
+    searchTerm = searchTerm.toUpperCase()
+
     const matchedKeys = Object.keys(this.data).filter(key => key.includes(searchTerm));
     const matches = matchedKeys.map(matchedKey => {
       return {
